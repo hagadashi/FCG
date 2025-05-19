@@ -1,0 +1,85 @@
+﻿# .NET
+**/[Bb]in/
+**/[Oo]bj/
+**/packages/
+**/.nuget/
+**/artifacts/
+*.user
+*.suo
+*.userprefs
+*.nupkg
+*.swp
+*.lock.json
+*.vs/
+.vs/
+TestResults/
+*.runsettings
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# IDE specific
+.vscode/
+.idea/
+*.rsuser
+*.sln.iml
+*.DotSettings.user
+
+# Rider
+.idea/
+*.sln.iml
+
+# Local development
+appsettings.Development.json
+.env
+.env.local
+.secrets/
+
+# Docker
+docker-compose.*.yml
+.dockerignore
+**/.docker/
+**/docker-compose.*.override.yml
+
+# Tests
+**/TestResults/
+*.trx
+*.VisualState.xml
+**/__pycache__/
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+*.bak
+*.pidb
+*.log
+*.sublime-workspace
+
+# Azure Functions
+local.settings.json
+
+# VS Code
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ASP.NET Core
+**/wwwroot/_content/
+**/wwwroot/dist/
+**/wwwroot/compiled/
+**/wwwroot/ts-build/
+**/wwwroot/css/*.min.css
+**/wwwroot/js/*.min.js
