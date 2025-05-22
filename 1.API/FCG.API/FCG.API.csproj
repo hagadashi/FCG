@@ -18,4 +18,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\4.Infrastructure\FCG.Infrastructure\FCG.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

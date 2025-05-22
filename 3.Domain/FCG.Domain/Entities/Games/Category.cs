@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace FCG.Domain.Entities.Games
 {
     public class Category : Entity
