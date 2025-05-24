@@ -23,7 +23,7 @@ namespace FCG.Infrastructure.Data.Migrations
             var adminUser = new User(
                 username: "admin",
                 email: "admin@fcg.com",
-                passwordHash: "AQAAAAIAAYagAAAAEPOQR6qm0GQ16Li+dGOTqZXnEULT9sBm32DZnb4/V4BwQxFUXl/3yqQDGkVQXuXZxA==", // "Admin@123"
+                passwordHash: "AQAAAAIAAYagAAAAELuZqr6Xe4dIFvy6d9sTTwAgvS6qGTyKLA1b5tcz5QoLQavXCzcSEZ4w7SpJADkYYA==", // "Admin@123"
                 firstName: "Admin",
                 lastName: "FCG",
                 role: adminRole

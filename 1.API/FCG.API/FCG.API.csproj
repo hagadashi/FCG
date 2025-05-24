@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\2.Application\FCG.Application\FCG.Application.csproj" />
     <ProjectReference Include="..\..\4.Infrastructure\FCG.Infrastructure\FCG.Infrastructure.csproj" />
   </ItemGroup>
 

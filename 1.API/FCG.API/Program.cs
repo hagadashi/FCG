@@ -1,3 +1,4 @@
+using FCG.Application;
 using FCG.Infrastructure;
 using FCG.Infrastructure.Data;
 using FCG.Infrastructure.Data.Migrations;
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 
 // Add Infrastructure Services
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationServices(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -39,6 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapHealthChecks("/health");
