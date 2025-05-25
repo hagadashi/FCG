@@ -20,9 +20,17 @@ namespace FCG.Domain.Entities.Users
             UserId = user.Id;
         }
 
+        public void Refresh(string newToken, DateTime newExpiration)
+        {
+            Token = newToken;
+            ExpiresAt = newExpiration;
+            base.Update();
+        }
+
         public void Deactivate()
         {
             IsActive = false;
+            Token = string.Empty;
             base.Update();
         }
 

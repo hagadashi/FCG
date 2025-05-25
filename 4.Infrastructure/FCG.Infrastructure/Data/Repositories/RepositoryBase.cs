@@ -18,7 +18,7 @@ namespace FCG.Infrastructure.Data.Repositories
             _dbSet = context.Set<T>();
         }
 
-        public virtual async Task<T> GetByIdAsync(Guid id)
+        public virtual async Task<T?> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }

@@ -20,6 +20,12 @@ namespace FCG.Infrastructure.Data.Repositories.Users
                 .ToListAsync();
         }
 
+        public async Task<Session?> GetActiveByRefreshTokenAsync(Guid userId, string token)
+        {
+            return await _dbSet.
+                FirstOrDefaultAsync(s => s.UserId == userId && s.Token == token && s.IsActive && s.ExpiresAt > DateTime.UtcNow);
+        }
+
     }
 
 }
