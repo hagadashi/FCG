@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 namespace FCG.Infrastructure.Data.Repositories
 {
 
-    public abstract class RepositoryBase<T> : IRepository<T> where T : Entity
+    public abstract class RepositoryBase<T> : IBaseRepository<T> where T : Entity
     {
 
         protected readonly AppDbContext _context;
@@ -18,7 +18,7 @@ namespace FCG.Infrastructure.Data.Repositories
             _dbSet = context.Set<T>();
         }
 
-        public virtual async Task<T?> GetByIdAsync(Guid id)
+        public virtual async Task<T> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -43,16 +43,19 @@ namespace FCG.Infrastructure.Data.Repositories
                                .ToListAsync();
         }
 
-        public virtual async Task AddAsync(T entity)
-            => await _dbSet.AddAsync(entity);
-
-        public virtual Task UpdateAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
-            return Task.CompletedTask;
+            var a = await _dbSet.AddAsync(entity);
+            return a.Entity;
         }
 
-        public virtual Task RemoveAsync(T entity)
+        public virtual Task<T> UpdateAsync(T entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            return Task.FromResult(entity);
+        }
+
+        public virtual Task DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
             return Task.CompletedTask;

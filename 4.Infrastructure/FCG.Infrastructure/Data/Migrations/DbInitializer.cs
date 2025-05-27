@@ -14,8 +14,8 @@ namespace FCG.Infrastructure.Data.Migrations
             }
 
             // Cria roles iniciais
-            var adminRole = new Role("Admin", "Administrador do sistema");
-            var userRole = new Role("User", "Usuário padrão");
+            var adminRole = new Role("Admin", "Administrador do sistema", false);
+            var userRole = new Role("User", "Usuário padrão", true);
 
             await context.Roles.AddRangeAsync(adminRole, userRole);
             await context.SaveChangesAsync();

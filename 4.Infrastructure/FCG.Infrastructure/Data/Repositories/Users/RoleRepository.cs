@@ -17,6 +17,10 @@ namespace FCG.Infrastructure.Data.Repositories.Users
             return await _dbSet.FirstOrDefaultAsync(r => r.Name == name);
         }
 
+        public async Task<Role> GetDefaultAsync()
+        {
+            return await _dbSet.FirstOrDefaultAsync(r => r.IsDefault);
+        }
     }
 
 }

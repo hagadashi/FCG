@@ -1,5 +1,5 @@
 ﻿using FCG.Application.Interfaces.Services.Users;
-using FCG.Domain.Entities.Users; // Supondo que "User" está aqui
+using FCG.Domain.Entities.Users; 
 using Microsoft.AspNetCore.Identity;
 
 namespace FCG.Application.Services.Users

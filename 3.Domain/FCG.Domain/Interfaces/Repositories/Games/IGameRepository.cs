@@ -3,7 +3,7 @@
 namespace FCG.Domain.Interfaces.Repositories.Games
 {
 
-    public interface IGameRepository : IRepository<Game>
+    public interface IGameRepository : IBaseRepository<Game>
     {
         Task<Game> GetByIdWithCategoryAsync(Guid id);
         Task<Game> GetByIdWithSalesAsync(Guid id);
