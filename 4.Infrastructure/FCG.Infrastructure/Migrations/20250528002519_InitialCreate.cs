@@ -11,13 +11,11 @@ namespace FCG.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";");
-
             migrationBuilder.CreateTable(
                 name: "CATEGORY_TB",
                 columns: table => new
                 {
-                    CATEGORY_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    CATEGORY_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     NAME = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     DESCRIPTION = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -32,9 +30,10 @@ namespace FCG.Infrastructure.Migrations
                 name: "ROLE_TB",
                 columns: table => new
                 {
-                    ROLE_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    ROLE_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     NAME = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     DESCRIPTION = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    IsDefault = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -47,7 +46,7 @@ namespace FCG.Infrastructure.Migrations
                 name: "GAME_TB",
                 columns: table => new
                 {
-                    GAME_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    GAME_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     TITLE = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     DESCRIPTION = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
                     PRICE = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
@@ -72,7 +71,7 @@ namespace FCG.Infrastructure.Migrations
                 name: "USER_TB",
                 columns: table => new
                 {
-                    USER_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    USER_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     USERNAME = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     EMAIL = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     PASSWORD = table.Column<string>(type: "text", nullable: false),
@@ -98,7 +97,7 @@ namespace FCG.Infrastructure.Migrations
                 name: "LIBRARY_TB",
                 columns: table => new
                 {
-                    LIBRARY_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    LIBRARY_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     DT_PURCHASED_AT = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     USER_ID = table.Column<Guid>(type: "uuid", nullable: false),
                     GAME_ID = table.Column<Guid>(type: "uuid", nullable: false),
@@ -126,7 +125,7 @@ namespace FCG.Infrastructure.Migrations
                 name: "SALE_TB",
                 columns: table => new
                 {
-                    SALE_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    SALE_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     NAME = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     DESCRIPTION = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     DISCOUNT_PERCENTAGE = table.Column<decimal>(type: "numeric(5,2)", nullable: false),
@@ -159,7 +158,7 @@ namespace FCG.Infrastructure.Migrations
                 name: "SESSION_TB",
                 columns: table => new
                 {
-                    SESSION_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    SESSION_ID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     TOKEN = table.Column<string>(type: "text", nullable: false),
                     DT_EXPIRES_AT = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ACTIVE = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),

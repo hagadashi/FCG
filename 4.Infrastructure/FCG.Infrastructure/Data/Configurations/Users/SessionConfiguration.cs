@@ -15,7 +15,7 @@ namespace FCG.Infrastructure.Data.Configurations.Users
 
             builder.Property(x => x.Id)
                    .HasColumnName("SESSION_ID")
-                   .HasDefaultValueSql("uuid_generate_v4()");
+                   .HasDefaultValueSql("gen_random_uuid()");
 
             builder.Property(x => x.Token)
                    .HasColumnName("TOKEN")

@@ -16,7 +16,7 @@ namespace FCG.Infrastructure.Data.Configurations.Games
 
             builder.Property(x => x.Id)
                    .HasColumnName("SALE_ID")
-                   .HasDefaultValueSql("uuid_generate_v4()");
+                   .HasDefaultValueSql("gen_random_uuid()");
 
             builder.Property(x => x.Name)
                    .HasColumnName("NAME")

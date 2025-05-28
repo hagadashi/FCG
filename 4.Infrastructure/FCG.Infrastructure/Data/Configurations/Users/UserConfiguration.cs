@@ -16,7 +16,7 @@ namespace FCG.Infrastructure.Data.Configurations.Users
 
             builder.Property(x => x.Id)
                    .HasColumnName("USER_ID")
-                   .HasDefaultValueSql("uuid_generate_v4()");
+                   .HasDefaultValueSql("gen_random_uuid()");
 
             builder.Property(x => x.Username)
                    .HasColumnName("USERNAME")

@@ -4,7 +4,7 @@ using FCG.Domain.Entities.Users;
 using FCG.Application.Interfaces.Services.Users;
 using FCG.Domain.Interfaces.Repositories.Users;
 
-namespace FCG.Application.Services
+namespace FCG.Application.Services.Users
 {
     public class UserService : IUserService
     {
