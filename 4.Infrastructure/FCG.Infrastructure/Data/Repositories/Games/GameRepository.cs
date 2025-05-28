@@ -20,6 +20,16 @@ namespace FCG.Infrastructure.Data.Repositories.Games
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Game>> GetActiveGamesOnSaleAsync()
+        {
+            DateTime now = DateTime.UtcNow;
+            return await _dbSet
+                .Where(g => g.IsActive)
+                .Include(g => g.Sales.Where(s => s.IsActive && s.StartDate <= DateTime.UtcNow && s.EndDate >= DateTime.UtcNow))
+                .Distinct()
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Game>> GetByCategoryIdAsync(Guid categoryId)
         {
             return await _dbSet
@@ -36,11 +46,19 @@ namespace FCG.Infrastructure.Data.Repositories.Games
 
         public async Task<Game> GetByIdWithSalesAsync(Guid id)
         {
+            DateTime now = DateTime.UtcNow;
             return await _dbSet
-                .Include(g => g.Sales.Where(s => s.IsActive && s.StartDate <= DateTime.UtcNow && s.EndDate >= DateTime.UtcNow))
+                .Include(g => g.Sales.Where(s => s.IsActive && s.StartDate <= now && s.EndDate >= now))
                 .FirstOrDefaultAsync(g => g.Id == id);
         }
-    
+
+        public async Task<Game> GetByNameAsync(string name)
+        {
+            return await _dbSet
+                .Include(g => g.Category)
+                .FirstOrDefaultAsync(g => g.Title == name);
+        }
+
     }
 
 }

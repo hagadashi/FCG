@@ -7,6 +7,8 @@ namespace FCG.Domain.Interfaces.Repositories.Games
     {
         Task<Game> GetByIdWithCategoryAsync(Guid id);
         Task<Game> GetByIdWithSalesAsync(Guid id);
+        Task<IEnumerable<Game>> GetActiveGamesOnSaleAsync();
+        Task<Game> GetByNameAsync(string name);
         Task<IEnumerable<Game>> GetByCategoryIdAsync(Guid categoryId);
         Task<IEnumerable<Game>> GetActiveGamesAsync();
     }

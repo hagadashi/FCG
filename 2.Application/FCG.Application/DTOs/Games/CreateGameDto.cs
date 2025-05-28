@@ -16,6 +16,9 @@ namespace FCG.Application.DTOs.Games
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0")]
         public decimal Price { get; set; }
 
+        [StringLength(400)]
+        public string ImageUrl { get; set; } = string.Empty;
+
         [Required]
         public Guid CategoryId { get; set; }
     }
