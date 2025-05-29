@@ -1,4 +1,7 @@
-﻿using FCG.Application.Interfaces.Services.Users;
+﻿using FCG.Application.Interfaces.Services.Games;
+using FCG.Application.Interfaces.Services.Users;
+using FCG.Application.Mappers;
+using FCG.Application.Services.Games;
 using FCG.Application.Services.Users;
 using FCG.Application.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,9 +23,15 @@ namespace FCG.Application
 
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
+            // AutoMapper
+            services.AddAutoMapper(typeof(MappingProfile));
+
+            // Application Services
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IJwtService, JwtService>();
             services.AddTransient<IPasswordService, PasswordService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IGameService, GameService>();
 
             return services;
         }
