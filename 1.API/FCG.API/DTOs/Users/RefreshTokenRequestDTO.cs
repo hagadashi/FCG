@@ -4,8 +4,10 @@ namespace FCG.API.DTOs.Users
 {
     public class RefreshTokenRequestDTO
     {
-        public string Token { get; set; }
+        [Required]
+        public string Token { get; set; } = string.Empty;
 
-        public string RefreshToken { get; set; }
+        [Required]
+        public string RefreshToken { get; set; } = string.Empty;
     }
 }

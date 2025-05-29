@@ -21,7 +21,7 @@ namespace FCG.Application.DTOs.Users
         public string Email { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(100, MinimumLength = 6)]
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$", ErrorMessage = "The password must be at least 8 characters long and include letters, numbers, and special characters.")]
         public string Password { get; set; } = string.Empty;
 
     }
