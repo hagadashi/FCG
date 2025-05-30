@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FCG.API.Controllers.Users
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
 
     public class AuthController : ControllerBase
     {

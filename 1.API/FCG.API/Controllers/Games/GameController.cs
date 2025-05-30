@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FCG.Application.DTOs.Games;
 using FCG.Application.Interfaces.Services.Games;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FCG.API.Controllers.Games;
 
+[ApiController]
+[Route("api/[controller]")]
+[Authorize]
 public class GamesController : BaseController
 {
 
@@ -52,11 +56,9 @@ public class GamesController : BaseController
     /// </summary>
     /// <param name="createGameDto">Dados do jogo</param>
     [HttpPost]
+    [Authorize(Policy = "Admin")]
     public async Task<IActionResult> CreateGame([FromBody] CreateGameDto createGameDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
         var game = await _gameService.CreateGameAsync(createGameDto);
         return CreatedAtAction(nameof(GetGameById), new { id = game.Id }, game);
     }
@@ -67,11 +69,9 @@ public class GamesController : BaseController
     /// <param name="id">ID do jogo</param>
     /// <param name="updateGameDto">Dados atualizados do jogo</param>
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = "Admin")]
     public async Task<IActionResult> UpdateGame(Guid id, [FromBody] UpdateGameDto updateGameDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
         var game = await _gameService.UpdateGameAsync(id, updateGameDto);
         return HandleResult(game, "Jogo atualizado com sucesso");
     }
@@ -81,6 +81,7 @@ public class GamesController : BaseController
     /// </summary>
     /// <param name="id">ID do jogo</param>
     [HttpDelete("{id:guid}")]
+    [Authorize(Policy = "Admin")]
     public async Task<IActionResult> DeleteGame(Guid id)
     {
         var success = await _gameService.DeleteGameAsync(id);

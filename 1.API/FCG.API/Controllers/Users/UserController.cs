@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using FCG.Application.DTOs.Users;
+﻿using FCG.Application.DTOs.Users;
 using FCG.Application.Interfaces.Services.Users;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FCG.API.Controllers.Users;
 
+[ApiController]
+[Route("api/[controller]")]
+[Authorize]
 public class UserController : BaseController
 {
     private readonly IUserService _userService;
@@ -52,9 +56,6 @@ public class UserController : BaseController
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
         var user = await _userService.CreateUserAsync(createUserDto);
         return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
     }
@@ -67,9 +68,6 @@ public class UserController : BaseController
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UpdateUserDto updateUserDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
         var user = await _userService.UpdateUserAsync(id, updateUserDto);
         return HandleResult(user, "Usuário atualizado com sucesso");
     }
