@@ -21,6 +21,7 @@ namespace FCG.Application.Mappers
             // User Entity <-> UserDto
             CreateMap<User, UserDto>()
                 .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FullName))
                 .ReverseMap()
                 .ForMember(dest => dest.Role, opt => opt.Ignore())
                 .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
