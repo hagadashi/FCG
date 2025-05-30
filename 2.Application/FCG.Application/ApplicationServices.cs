@@ -32,6 +32,7 @@ namespace FCG.Application
             services.AddTransient<IPasswordService, PasswordService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<ISaleService, SaleService>();
 
             return services;
         }

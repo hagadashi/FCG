@@ -12,6 +12,7 @@ namespace FCG.Application.Mappers
         {
             CreateUserMaps();
             CreateGameMaps();
+            CreateSaleMaps();
         }
 
         private void CreateUserMaps()
@@ -84,5 +85,14 @@ namespace FCG.Application.Mappers
             CreateMap<Category, object>();
         }
 
+        private void CreateSaleMaps()
+        {
+            // Sale Entity <-> SaleDto
+            CreateMap<Sale, SaleDto>()
+                .ReverseMap()
+                .ForMember(dest => dest.Game, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedByUser, opt => opt.Ignore());
+
+        }
     }
 }

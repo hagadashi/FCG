@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FCG.API.Controllers.Users;
 
-[ApiController]
-[Route("api/[controller]")]
 [Authorize]
 public class UserController : BaseController
 {

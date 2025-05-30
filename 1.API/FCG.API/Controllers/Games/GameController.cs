@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FCG.API.Controllers.Games;
 
-[ApiController]
-[Route("api/[controller]")]
 [Authorize]
 public class GamesController : BaseController
 {
