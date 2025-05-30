@@ -65,6 +65,7 @@ namespace FCG.Application.Services.Users
                                 role);
 
             var createdUser = await _userRepository.AddAsync(user);
+            await _userRepository.SaveChangesAsync();
             return _mapper.Map<UserDto>(createdUser);
         }
 
@@ -85,6 +86,7 @@ namespace FCG.Application.Services.Users
             user.Update(updateUserDto.Name, updateUserDto.LastName, updateUserDto.Email);
 
             var updatedUser = await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveChangesAsync();
             return _mapper.Map<UserDto>(updatedUser);
         }
 
@@ -101,6 +103,7 @@ namespace FCG.Application.Services.Users
             user.ChangePassword(newPasswordHash);
 
             var updatedUser = await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveChangesAsync();
             return _mapper.Map<UserDto>(updatedUser);
         }
 
@@ -116,6 +119,7 @@ namespace FCG.Application.Services.Users
 
             user.ChangeRole(newRole);
             var updatedUser = await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveChangesAsync();
 
             return _mapper.Map<UserDto>(updatedUser);
         }
@@ -127,6 +131,7 @@ namespace FCG.Application.Services.Users
                 return false;
 
             await _userRepository.DeleteAsync(user);
+            await _userRepository.SaveChangesAsync();
             return true;
         }
 
@@ -138,6 +143,7 @@ namespace FCG.Application.Services.Users
 
             user.Activate();
             await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveChangesAsync();
             return true;
         }
 
@@ -149,6 +155,7 @@ namespace FCG.Application.Services.Users
 
             user.Deactivate();
             await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveChangesAsync();
             return true;
         }
 

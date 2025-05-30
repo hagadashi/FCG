@@ -78,6 +78,7 @@ namespace FCG.Application.Services.Games
             var game = new Game(createGameDto.Name, createGameDto.Description, createGameDto.Price, createGameDto.ImageUrl, category);
 
             var createdGame = await _gameRepository.AddAsync(game);
+            await _gameRepository.SaveChangesAsync();
             return _mapper.Map<GameDto>(createdGame);
         }
 
@@ -115,6 +116,7 @@ namespace FCG.Application.Services.Games
             }
 
             var updatedGame = await _gameRepository.UpdateAsync(game);
+            await _gameRepository.SaveChangesAsync();
             return _mapper.Map<GameDto>(updatedGame);
         }
 
@@ -125,6 +127,7 @@ namespace FCG.Application.Services.Games
                 return false;
 
             await _gameRepository.DeleteAsync(game);
+            await _gameRepository.SaveChangesAsync();
             return true;
         }
 
