@@ -52,6 +52,7 @@ public class UserController : BaseController
     /// </summary>
     /// <param name="createUserDto">Dados do usuário</param>
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
     {
         var user = await _userService.CreateUserAsync(createUserDto);
