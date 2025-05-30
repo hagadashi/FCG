@@ -42,8 +42,8 @@ namespace FCG.API.Controllers.Games
         [HttpGet("by-game/{gameId:guid}")]
         public async Task<IActionResult> GetSalesByGame(Guid gameId)
         {
-            var games = await _saleService.GetSalesByGameAsync(gameId);
-            return HandleResult(games);
+            var sales = await _saleService.GetSalesByGameAsync(gameId);
+            return HandleResult(sales);
         }
     }
 }

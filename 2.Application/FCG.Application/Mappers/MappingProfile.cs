@@ -13,6 +13,7 @@ namespace FCG.Application.Mappers
             CreateUserMaps();
             CreateGameMaps();
             CreateSaleMaps();
+            CreateLibraryMaps();
         }
 
         private void CreateUserMaps()
@@ -93,6 +94,17 @@ namespace FCG.Application.Mappers
                 .ForMember(dest => dest.Game, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedByUser, opt => opt.Ignore());
 
+        }
+
+        private void CreateLibraryMaps()
+        {
+            // Library Entity <-> LibraryDto
+            CreateMap<Library, LibraryDto>()
+                .ForMember(dest => dest.Game, opt => opt.MapFrom(src => src.Game));
+
+            CreateMap<LibraryDto, Library>()
+                .ForMember(dest => dest.Game, opt => opt.Ignore())
+                .ForMember(dest => dest.User, opt => opt.Ignore());
         }
     }
 }

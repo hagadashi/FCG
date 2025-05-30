@@ -33,6 +33,7 @@ namespace FCG.Application
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<ISaleService, SaleService>();
+            services.AddScoped<ILibraryService, LibraryService>();
 
             return services;
         }
