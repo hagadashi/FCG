@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace FCG.API.Controllers.Games
 {
     [Authorize]
-    public class SalesController : BaseController
+    public class SaleController : BaseController
     {
         private readonly ISaleService _saleService;
 
-        public SalesController(ISaleService saleService)
+        public SaleController(ISaleService saleService)
         {
             _saleService = saleService;
         }
