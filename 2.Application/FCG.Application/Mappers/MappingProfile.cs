@@ -92,8 +92,28 @@ namespace FCG.Application.Mappers
             // Sale Entity <-> SaleDto
             CreateMap<Sale, SaleDto>()
                 .ReverseMap()
-                .ForMember(dest => dest.Game, opt => opt.Ignore())
+                .ForMember(dest => dest.Game, opt => opt.MapFrom(src => src.Game))
                 .ForMember(dest => dest.CreatedByUser, opt => opt.Ignore());
+
+            CreateMap<SaleDto, Sale>()
+                .ForMember(dest => dest.Game, opt => opt.Ignore());
+
+            // CreateSaleDto -> Sale Entity
+            CreateMap<CreateSaleDto, Sale>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.Game, opt => opt.Ignore())
+                .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true));
+
+            // UpdateSaleDto -> Sale Entity
+            CreateMap<UpdateSaleDto, Sale>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.Game, opt => opt.Ignore())
+                .ForMember(dest => dest.GameId, opt => opt.Condition(src => src.GameId.HasValue))
+                .ForMember(dest => dest.IsActive, opt => opt.Condition(src => src.IsActive.HasValue));
 
         }
 

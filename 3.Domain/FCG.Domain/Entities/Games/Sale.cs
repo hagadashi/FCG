@@ -36,7 +36,7 @@ namespace FCG.Domain.Entities.Games
             CreatedByUserId = createdByUser.Id;
         }
 
-        public void Update(string name, string description, decimal discountPercentage, DateTime startDate, DateTime endDate)
+        public void Update(string name, string description, decimal discountPercentage, DateTime startDate, DateTime endDate, Game game)
         {
             if (discountPercentage <= 0 || discountPercentage > 100)
                 throw new ArgumentException("Discount percentage must be between 0 and 100", nameof(discountPercentage));
@@ -46,6 +46,8 @@ namespace FCG.Domain.Entities.Games
             DiscountPercentage = discountPercentage;
             StartDate = startDate;
             EndDate = endDate;
+            Game = game ?? throw new ArgumentNullException(nameof(game));
+            GameId = game.Id;
             base.Update();
         }
 

@@ -18,6 +18,7 @@ namespace FCG.Infrastructure.Data.Repositories.Games
             return await _dbSet
                 .Where(s => s.IsActive && s.StartDate <= now && s.EndDate >= now)
                 .Include(s => s.Game)
+                    .ThenInclude(g => g.Category)
                 .ToListAsync();
         }
 
@@ -26,6 +27,8 @@ namespace FCG.Infrastructure.Data.Repositories.Games
             DateTime now = DateTime.UtcNow;
             return await _dbSet
                 .Where(s => s.GameId == gameId && s.IsActive && s.StartDate <= now && s.EndDate >= now)
+                .Include(s => s.Game)
+                    .ThenInclude(g => g.Category)
                 .ToListAsync();
         }
 
@@ -33,7 +36,17 @@ namespace FCG.Infrastructure.Data.Repositories.Games
         {
             return await _dbSet
                 .Where(s => s.GameId == gameId)
+                .Include(s => s.Game)
+                    .ThenInclude(g => g.Category)
                 .ToListAsync();
+        }
+
+        public override async Task<Sale> GetByIdAsync(Guid id)
+        {
+            return await _dbSet
+                .Include(s => s.Game)
+                    .ThenInclude(g => g.Category)
+                .FirstOrDefaultAsync(s => s.Id == id);
         }
 
     }
