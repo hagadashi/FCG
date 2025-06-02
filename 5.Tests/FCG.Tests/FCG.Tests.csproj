@@ -20,6 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\1.API\FCG.API\FCG.API.csproj" />
+    <ProjectReference Include="..\..\2.Application\FCG.Application\FCG.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
