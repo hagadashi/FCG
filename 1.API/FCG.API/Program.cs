@@ -69,7 +69,7 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 app.UseGlobalExceptionHandling();
-app.UseRequestLogging();
+//app.UseRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

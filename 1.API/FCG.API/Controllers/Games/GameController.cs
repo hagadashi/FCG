@@ -48,6 +48,17 @@ public class GamesController : BaseController
         return HandleResult(games);
     }
 
+    /// <summary>
+    /// Obtém jogos por categoria
+    /// </summary>
+    /// <param name="categoryId">ID da categoria</param>
+    [HttpGet("categories")]
+    public async Task<IActionResult> GetCategories()
+    {
+        var games = await _gameService.GetAllCategoriesAsync();
+        return HandleResult(games);
+    }
+
 
     /// <summary>
     /// Cria um novo jogo

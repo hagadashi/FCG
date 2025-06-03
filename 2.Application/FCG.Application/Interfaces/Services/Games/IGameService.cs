@@ -7,6 +7,7 @@ namespace FCG.Application.Interfaces.Services.Games
     {
         Task<IEnumerable<GameDto>> GetAllGamesAsync();
         Task<IEnumerable<GameDto>> GetActiveGamesAsync();
+        Task<IEnumerable<CategoryDto>> GetAllCategoriesAsync();
         Task<IEnumerable<GameDto>> GetGamesByCategoryAsync(Guid categoryId);
         Task<GameDto?> GetGameByIdAsync(Guid id);
         Task<GameDto> CreateGameAsync(CreateGameDto createGameDto);

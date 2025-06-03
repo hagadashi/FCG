@@ -15,6 +15,12 @@ namespace FCG.Infrastructure.Data.Repositories.Users
         {
         }
 
+        public override async Task<IReadOnlyList<User>> GetAllAsync()
+        {
+            return await _dbSet.AsNoTracking()
+                               .Include(u => u.Role).ToListAsync();
+        }
+
         public async Task<User?> GetByEmailAsync(string email)
         {
             return await _dbSet.FirstOrDefaultAsync(u => u.Email == email);

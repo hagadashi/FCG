@@ -34,6 +34,14 @@ namespace FCG.Application.Services.Games
             return gamesDto;
         }
 
+        public async Task<IEnumerable<CategoryDto>> GetAllCategoriesAsync()
+        {
+            var categories = await _categoryRepository.GetAllAsync();
+            var categoryDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+
+            return categoryDto;
+        }
+
         public async Task<IEnumerable<GameDto>> GetActiveGamesAsync()
         {
             var games = await _gameRepository.GetActiveGamesAsync();

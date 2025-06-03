@@ -56,7 +56,7 @@ public class UserController : BaseController
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
     {
         var user = await _userService.CreateUserAsync(createUserDto);
-        return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+        return HandleResult(user);
     }
 
     /// <summary>
