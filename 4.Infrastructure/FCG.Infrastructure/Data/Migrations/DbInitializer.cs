@@ -1,5 +1,6 @@
 ﻿using FCG.Domain.Entities.Games;
 using FCG.Domain.Entities.Users;
+using System.Collections.Generic;
 
 namespace FCG.Infrastructure.Data.Migrations
 {
@@ -29,7 +30,17 @@ namespace FCG.Infrastructure.Data.Migrations
                 role: adminRole
             );
 
+            var defaultUser = new User(
+                username: "user",
+                email: "user@fcg.com",
+                passwordHash: "AQAAAAIAAYagAAAAEAkL5Bz7x8DuX1uuNfy2VMofXKA08JWG8YpvvLlN7HUNM+I5s9UNutF+3HAAEZA6/g==", // "User123!"
+                firstName: "User",
+                lastName: "Default",
+                role: userRole
+            );
+
             await context.Users.AddAsync(adminUser);
+            await context.Users.AddAsync(defaultUser);
             await context.SaveChangesAsync();
 
             // Criar categorias iniciais

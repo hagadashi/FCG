@@ -1,5 +1,6 @@
 ﻿using FCG.Application.DTOs.Users;
 using FCG.Application.Interfaces.Services.Users;
+using FCG.Domain.Entities.Games;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,7 +57,7 @@ public class UserController : BaseController
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
     {
         var user = await _userService.CreateUserAsync(createUserDto);
-        return HandleResult(user);
+        return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
     }
 
     /// <summary>

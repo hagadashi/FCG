@@ -96,7 +96,7 @@ Antes de começar, certifique-se de ter instalado:
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/your-username/fcg.git
+git clone https://github.com/hagadashi/FCG.git
 cd fcg
 ```
 
@@ -146,7 +146,7 @@ POST   /api/sales           # Criar promoção (Admin)
 ### Dados Iniciais
 
 O sistema já vem com dados iniciais configurados:
-- **Admin**: `admin@fcg.com` / `Admin123!` > Pendente criar
+- **Admin**: `admin@fcg.com` / `Admin@123` > Pendente criar
 - **Usuário**: `user@fcg.com` / `User123!` -> Pendente criar
 
 ## 📁 Estrutura do Projeto
@@ -190,9 +190,6 @@ dotnet test
 
 # Executar testes com cobertura
 dotnet test --collect:"XPlat Code Coverage"
-
-# Executar testes específicos
-dotnet test --filter "Category=Unit"
 ```
 
 ## 📊 Banco de Dados
