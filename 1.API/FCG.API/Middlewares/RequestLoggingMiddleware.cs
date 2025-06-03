@@ -5,10 +5,8 @@ namespace FCG.API.Middlewares;
 
 public class RequestLoggingMiddleware
 {
-
     private readonly RequestDelegate _next;
     private readonly ILogger<RequestLoggingMiddleware> _logger;
-
 
     public RequestLoggingMiddleware(RequestDelegate next, ILogger<RequestLoggingMiddleware> logger)
     {
@@ -27,32 +25,58 @@ public class RequestLoggingMiddleware
         // Log da requisição de entrada
         await LogRequest(context, correlationId);
 
-        // Captura o body da resposta
         var originalBodyStream = context.Response.Body;
         using var responseBody = new MemoryStream();
         context.Response.Body = responseBody;
+
+        Exception? exception = null;
 
         try
         {
             await _next(context);
         }
+        catch (Exception ex)
+        {
+            exception = ex;
+            throw; // Re-lança a exceção para manter o comportamento original
+        }
         finally
         {
+            
             stopwatch.Stop();
 
-            // Log da resposta
-            await LogResponse(context, correlationId, stopwatch.ElapsedMilliseconds);
+            try
+            {
+                await LogResponse(context, correlationId, stopwatch.ElapsedMilliseconds);
 
-            // Restaura o body original
-            await responseBody.CopyToAsync(originalBodyStream);
+                if (exception == null && !context.Response.HasStarted)
+                {
+                    responseBody.Seek(0, SeekOrigin.Begin);
+                    await responseBody.CopyToAsync(originalBodyStream);
+                }
+                else if (!context.Response.HasStarted)
+                {
+                    context.Response.Body = originalBodyStream;
+                }
+            }
+            catch (Exception logEx)
+            {
+                _logger.LogError(logEx, "Erro ao fazer log da resposta. CorrelationId: {CorrelationId}", correlationId);
+
+                // Garante que o stream original seja restaurado
+                if (!context.Response.HasStarted)
+                {
+                    context.Response.Body = originalBodyStream;
+                }
+            }
         }
     }
 
     private async Task LogRequest(HttpContext context, string correlationId)
     {
         var request = context.Request;
-
         var requestBody = string.Empty;
+
         if (request.ContentLength > 0 && request.ContentType?.Contains("application/json") == true)
         {
             request.EnableBuffering();
@@ -72,8 +96,8 @@ public class RequestLoggingMiddleware
     private async Task LogResponse(HttpContext context, string correlationId, long elapsedMilliseconds)
     {
         var response = context.Response;
-
         var responseBody = string.Empty;
+
         if (response.Body.CanSeek && response.ContentType?.Contains("application/json") == true)
         {
             response.Body.Seek(0, SeekOrigin.Begin);
@@ -83,7 +107,6 @@ public class RequestLoggingMiddleware
         }
 
         var logLevel = response.StatusCode >= 400 ? LogLevel.Warning : LogLevel.Information;
-
         _logger.Log(logLevel, "Outgoing Response: {StatusCode} | CorrelationId: {CorrelationId} | Duration: {Duration}ms | ContentType: {ContentType} | Body: {Body}",
             response.StatusCode,
             correlationId,
@@ -91,5 +114,4 @@ public class RequestLoggingMiddleware
             response.ContentType ?? "N/A",
             string.IsNullOrEmpty(responseBody) ? "N/A" : responseBody);
     }
-
 }
