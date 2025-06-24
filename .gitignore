@@ -48,7 +48,6 @@ appsettings.Development.json
 
 # Docker
 docker-compose.*.yml
-.dockerignore
 **/.docker/
 **/docker-compose.*.override.yml
 

@@ -1,0 +1,38 @@
+# Diretórios e arquivos de build
+bin/
+obj/
+out/
+*.user
+*.vspscc
+*.vssscc
+
+# Configurações locais e IDE
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Arquivos de log e temporários
+*.log
+*.tmp
+
+# Testes e cobertura
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Pacotes NuGet locais
+*.nupkg
+packages/
+.nuget/
+
+# Outros arquivos desnecessários
+Dockerfile.*
+docker-compose.*
+.env
+.env.*
+*.mdf
+*.ldf

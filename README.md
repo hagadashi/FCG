@@ -2,6 +2,7 @@
 
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat&logo=.net)](https://dotnet.microsoft.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/your-username/fcg)
 
@@ -15,6 +16,7 @@ Uma plataforma de venda de jogos digitais e gestão de servidores para partidas 
 - [Tecnologias](#-tecnologias)
 - [Pré-requisitos](#-pré-requisitos)
 - [Instalação](#-instalação)
+- [Docker](#-Docker)
 - [Uso](#-uso)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
 - [Licença](#-licença)
@@ -124,6 +126,28 @@ dotnet restore
 ```bash
 dotnet run
 ```
+
+## 🐳 Docker
+
+Você pode executar a aplicação facilmente usando Docker.
+
+### Build da imagem
+
+```bash 
+docker build -t fcg-api .
+```
+
+### Executando o container
+
+```bash 
+docker run -d -p 8080:80 --name fcg-api-container fcg-api
+```
+
+- A API estará disponível em [http://localhost:8080](http://localhost:8080)
+- O parâmetro `-p 8080:80` mapeia a porta 80 do container para a porta 8080 do host.
+- O nome do container será `fcg-api-container`.
+
+> Certifique-se de configurar corretamente a string de conexão com o banco de dados PostgreSQL no arquivo `appsettings.json` ou via variáveis de ambiente.
 
 ## 💻 Uso
 
