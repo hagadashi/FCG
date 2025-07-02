@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Datadog.Trace;
+using Datadog.Trace.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,10 @@ builder.Host.UseSerilog((context, services, loggerConfiguration) =>
         .ReadFrom.Services(services)
         .Enrich.FromLogContext();
 });
+
+// Configs Datadog APM
+var settings = TracerSettings.FromDefaultSources();
+Tracer.Configure(settings);
 
 // Add services to the container.
 builder.Services.AddControllers();

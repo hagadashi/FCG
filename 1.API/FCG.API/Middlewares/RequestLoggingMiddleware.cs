@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Datadog.Trace;
+using System.Diagnostics;
 using System.Text;
 
 namespace FCG.API.Middlewares;
@@ -38,6 +39,8 @@ public class RequestLoggingMiddleware
         catch (Exception ex)
         {
             exception = ex;
+            var span = Tracer.Instance.ActiveScope?.Span;
+            span?.SetException(ex);
             throw; // Re-lança a exceção para manter o comportamento original
         }
         finally
@@ -85,6 +88,16 @@ public class RequestLoggingMiddleware
             request.Body.Position = 0;
         }
 
+        var span = Tracer.Instance.ActiveScope?.Span;
+        if (span != null)
+        {
+            span.SetTag("correlation_id", correlationId);
+            span.SetTag("http.request_path", request.Path);
+            span.SetTag("http.request_method", request.Method);
+            if (!string.IsNullOrEmpty(requestBody))
+                span.SetTag("http.request_body", requestBody);
+        }
+
         _logger.LogInformation("Incoming Request: {Method} {Path} | CorrelationId: {CorrelationId} | ContentType: {ContentType} | Body: {Body}",
             request.Method,
             request.Path,
@@ -105,6 +118,10 @@ public class RequestLoggingMiddleware
             responseBody = await reader.ReadToEndAsync();
             response.Body.Seek(0, SeekOrigin.Begin);
         }
+
+        var span = Tracer.Instance.ActiveScope?.Span;
+        span?.SetTag("http.status_code", response.StatusCode.ToString());
+        span?.SetTag("http.response_time_ms", elapsedMilliseconds.ToString());
 
         var logLevel = response.StatusCode >= 400 ? LogLevel.Warning : LogLevel.Information;
         _logger.Log(logLevel, "Outgoing Response: {StatusCode} | CorrelationId: {CorrelationId} | Duration: {Duration}ms | ContentType: {ContentType} | Body: {Body}",

@@ -20,14 +20,14 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
 # Instala o Datadog .NET Tracer
-RUN apt-get update && apt-get install -y curl jq \
-    && mkdir -p /opt/datadog /var/log/datadog \
-    && TRACER_VERSION=$(curl -s https://api.github.com/repos/DataDog/dd-trace-dotnet/releases/latest | jq -r .tag_name | cut -c2-) \
+RUN apt-get update \
+    && apt-get install -y curl dpkg \
+    && mkdir -p /opt/datadog \
+    && mkdir -p /var/log/datadog \
+    && TRACER_VERSION=$(curl -s https://api.github.com/repos/DataDog/dd-trace-dotnet/releases/latest | grep tag_name | cut -d '"' -f 4 | cut -c2-) \
     && curl -LO https://github.com/DataDog/dd-trace-dotnet/releases/download/v${TRACER_VERSION}/datadog-dotnet-apm_${TRACER_VERSION}_amd64.deb \
     && dpkg -i ./datadog-dotnet-apm_${TRACER_VERSION}_amd64.deb \
-    && rm ./datadog-dotnet-apm_${TRACER_VERSION}_amd64.deb \
-    && apt-get remove -y curl jq \
-    && apt-get autoremove -y && apt-get clean
+    && rm ./datadog-dotnet-apm_${TRACER_VERSION}_amd64.deb
 
 # Define variáveis de ambiente para ativar o tracer
 ENV CORECLR_ENABLE_PROFILING=1

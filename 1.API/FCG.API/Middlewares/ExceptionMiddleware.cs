@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
+using Datadog.Trace;
 using FCG.Application.Settings;
 using FCG.Domain.Exceptions;
 
@@ -74,6 +75,20 @@ public class ExceptionMiddleware
 
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = response.StatusCode;
+
+        var span = Tracer.Instance.ActiveScope?.Span;
+        if (span is not null)
+        {
+            var errorStatusCodes = new[] { 400, 500, 502, 503, 504 };
+            if (errorStatusCodes.Contains(context.Response.StatusCode))
+            {
+                span.Error = true;
+            }
+
+            span.SetTag("error.msg", exception.Message);
+            span.SetTag("error.type", exception.GetType().Name);
+            span.SetTag("http.status_code", context.Response.StatusCode.ToString());
+        }
 
         var jsonResponse = JsonSerializer.Serialize(response, new JsonSerializerOptions
         {
