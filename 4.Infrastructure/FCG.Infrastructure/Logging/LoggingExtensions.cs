@@ -15,6 +15,7 @@ public static class LoggingExtensions
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(configuration)
             .Enrich.FromLogContext()
+            .WriteTo.Console(new Serilog.Formatting.Json.JsonFormatter())
             .CreateBootstrapLogger();
 
         services.AddLogging(loggingBuilder =>

@@ -23,7 +23,8 @@ builder.Host.UseSerilog((context, services, loggerConfiguration) =>
     loggerConfiguration
         .ReadFrom.Configuration(context.Configuration)
         .ReadFrom.Services(services)
-        .Enrich.FromLogContext();
+        .Enrich.FromLogContext()
+        .WriteTo.Console(new Serilog.Formatting.Json.JsonFormatter());
 });
 
 // Configs Datadog APM
