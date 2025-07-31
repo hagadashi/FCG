@@ -26,4 +26,4 @@ jobs:
           logout: true
 
       - name: Push image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/fcg:latest .
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/fcg:latest
