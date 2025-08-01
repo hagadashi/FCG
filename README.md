@@ -134,18 +134,18 @@ Você pode executar a aplicação facilmente usando Docker.
 ### Build da imagem
 
 ```bash 
-docker build -t fcg-api .
+docker-compose up --build -d
 ```
 
-### Executando o container
+### Verificando se os containers estão rodando
 
 ```bash 
-docker run -d -p 8080:80 --name fcg-api-container fcg-api
+docker ps
 ```
 
 - A API estará disponível em [http://localhost:8080](http://localhost:8080)
-- O parâmetro `-p 8080:80` mapeia a porta 80 do container para a porta 8080 do host.
-- O nome do container será `fcg-api-container`.
+- O docker-compose.yml mapeia a porta 80 do container para a porta 8080 do host
+- O serviço principal está definido com o nome fcg-api (ou conforme configurado no compose)
 
 > Certifique-se de configurar corretamente a string de conexão com o banco de dados PostgreSQL no arquivo `appsettings.json` ou via variáveis de ambiente.
 
