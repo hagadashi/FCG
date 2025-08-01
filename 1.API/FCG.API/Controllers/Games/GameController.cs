@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using FCG.Application.DTOs.Games;
+﻿using FCG.Application.DTOs.Games;
 using FCG.Application.Interfaces.Services.Games;
+using FCG.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FCG.API.Controllers.Games;
 
@@ -101,4 +103,24 @@ public class GamesController : BaseController
         return NoContent();
     }
 
+    /// <summary>
+    /// Endpoint para gerar um erro proposital no banco
+    /// </summary>
+    [HttpGet("simulate-db-error")]
+    [AllowAnonymous]
+    public async Task<IActionResult> SimulateDbError([FromServices] AppDbContext context)
+    {
+        try
+        {
+            // Executa uma query inválida propositalmente
+            await context.Database.ExecuteSqlRawAsync("SELECT * FROM tabela_inexistente");
+        }
+        catch (Exception ex)
+        {
+            // Propaga para que o Datadog marque como erro
+            throw;
+        }
+
+        return Ok("Se você chegou aqui, o erro não foi gerado como esperado");
+    }
 }
