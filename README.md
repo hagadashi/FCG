@@ -173,6 +173,28 @@ O sistema já vem com dados iniciais configurados:
 - **Admin**: `admin@fcg.com` / `Admin@123` > Pendente criar
 - **Usuário**: `user@fcg.com` / `User123!` -> Pendente criar
 
+## 🚦 Geração de Tráfego para Monitoramento
+
+Para facilitar o monitoramento e teste da aplicação, incluímos um script que gera requisições contínuas simulando o uso real da API, ajudando a alimentar métricas e traces no Datadog.
+
+### Executando o script de geração de tráfego
+
+1. Certifique-se que a aplicação e o Datadog Agent estejam rodando via Docker Compose.
+
+2. O script `traffic-generator.sh` realiza:
+
+- Autenticação uma única vez para obter o token JWT.
+- Várias chamadas para endpoints principais, utilizando o token obtido.
+- Requisições adicionais para endpoints de teste e health check.
+
+3. Para rodar o script (em ambiente Linux/WSL):
+
+```bash
+chmod +x traffic-generator.sh
+
+./traffic-generator.sh
+```
+
 ## 📁 Estrutura do Projeto
 
 ```
