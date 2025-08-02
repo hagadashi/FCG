@@ -134,18 +134,18 @@ Você pode executar a aplicação facilmente usando Docker.
 ### Build da imagem
 
 ```bash 
-docker build -t fcg-api .
+docker-compose up --build -d
 ```
 
-### Executando o container
+### Verificando se os containers estão rodando
 
 ```bash 
-docker run -d -p 8080:80 --name fcg-api-container fcg-api
+docker ps
 ```
 
 - A API estará disponível em [http://localhost:8080](http://localhost:8080)
-- O parâmetro `-p 8080:80` mapeia a porta 80 do container para a porta 8080 do host.
-- O nome do container será `fcg-api-container`.
+- O docker-compose.yml mapeia a porta 80 do container para a porta 8080 do host
+- O serviço principal está definido com o nome fcg-api (ou conforme configurado no compose)
 
 > Certifique-se de configurar corretamente a string de conexão com o banco de dados PostgreSQL no arquivo `appsettings.json` ou via variáveis de ambiente.
 
@@ -172,6 +172,28 @@ POST   /api/sales           # Criar promoção (Admin)
 O sistema já vem com dados iniciais configurados:
 - **Admin**: `admin@fcg.com` / `Admin@123` > Pendente criar
 - **Usuário**: `user@fcg.com` / `User123!` -> Pendente criar
+
+## 🚦 Geração de Tráfego para Monitoramento
+
+Para facilitar o monitoramento e teste da aplicação, incluímos um script que gera requisições contínuas simulando o uso real da API, ajudando a alimentar métricas e traces no Datadog.
+
+### Executando o script de geração de tráfego
+
+1. Certifique-se que a aplicação e o Datadog Agent estejam rodando via Docker Compose.
+
+2. O script `traffic-generator.sh` realiza:
+
+- Autenticação uma única vez para obter o token JWT.
+- Várias chamadas para endpoints principais, utilizando o token obtido.
+- Requisições adicionais para endpoints de teste e health check.
+
+3. Para rodar o script (em ambiente Linux/WSL):
+
+```bash
+chmod +x traffic-generator.sh
+
+./traffic-generator.sh
+```
 
 ## 📁 Estrutura do Projeto
 
