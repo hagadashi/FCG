@@ -42,6 +42,18 @@ builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Fiap Cloud Games API",
+        Version = "v1",
+        Description = "API do projeto [Fiap Cloud Games (FCG)](https://github.com/hagadashi/FCG) da FIAP. \n\n" +
+                       "Este projeto visa fornecer uma API RESTful para cadastro de jogos, usuários, favoritos e autenticação via JWT.",
+        Contact = new OpenApiContact
+        {
+            Name = "Equipe FCG",
+            Url = new Uri("https://github.com/hagadashi/FCG"),
+        },
+    });
     // Define o esquema de segurança (ex: JWT Bearer)
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
