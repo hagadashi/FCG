@@ -46,8 +46,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Fiap Cloud Games API",
         Version = "v1",
-        Description = "API do projeto [Fiap Cloud Games (FCG)](https://github.com/hagadashi/FCG) da FIAP. \n\n" +
-                       "Este projeto visa fornecer uma API RESTful para cadastro de jogos, usuários, favoritos e autenticação via JWT.",
+        Description = "API do projeto [Fiap Cloud Games (FCG)](https://github.com/hagadashi/FCG) da FIAP.",
         Contact = new OpenApiContact
         {
             Name = "Equipe FCG",
