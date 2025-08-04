@@ -1,5 +1,5 @@
 # .github/workflows/ci-docker.yml
-name: CI – Build Image & Publish to Docker Hub
+name: Build Image & Publish to Docker Hub
 
 on:
   push:
