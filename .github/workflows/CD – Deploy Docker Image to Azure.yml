@@ -3,7 +3,7 @@ name: CD – Deploy Docker Image to Azure
 
 on:
   workflow_run:
-    workflows: ["CI – Build Image & Publish to Docker Hub"]
+    workflows: ["Build Image & Publish to Docker Hub"]
     types: [completed]
 
 env:
