@@ -5,7 +5,8 @@ on:
   workflow_run:
     workflows: ["Build Image & Publish to Docker Hub"]
     types: [completed]
-
+  workflow_dispatch:
+  
 env:
   AZURE_WEBAPP_NAME: fgc
 
